@@ -64,7 +64,7 @@ This page explains how to secure and set up a Linux distribution on a virtual ma
   Now we can log into the remote VM through ssh with the following command: 
   
   ```
-   $ ssh -i lightsail_key.rsa grader@54.210.11.70 
+   $ ssh -i ~/.ssh/lightsail_key.rsa grader@54.210.11.70 
   ```
 
 ### 4. Change SSH port from 22 to 2200
