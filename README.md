@@ -1,18 +1,23 @@
 # Linux-Server-Configuration
-### 1 & 2 - Create Development Environment: Launch Virtual Machine and SSH into the server
-Source: [Udacity][3]  
 
-1. Create new development environment.
-2. Download private keys and write down your public IP address.
-3. Move the private key file into the folder ~/.ssh:  
-  `$ mv ~/Downloads/udacity_key.rsa ~/.ssh/`
-4. Set file rights (only owner can write and read.):  
-  `$ chmod 600 ~/.ssh/udacity_key.rsa`
-5. SSH into the instance:  
-  `<pre>$ ssh -i ~/.ssh/udacity_key.rsa root@PUPLIC-IP-ADDRESS`
+This page explains how to secure and set up a Linux distribution on a virtual machine, install and configure a web and database server to host a web application.
 
-### 3 & 4 - User Management: Create a new user and give user the permission to sudo
-Source: [DigitalOcean][4]  
+```
+  iP address: 54.210.11.70
+
+  Accessible SSH port: 2200
+
+  Application URL: http://ec2-54-210-11-70.compute-1.amazonaws.com/
+```
+
+# Step
+### 1. Launch Virtual Machine and SSH into the server
+- From the `Account` menu on Amazon Lightsail, click on `SSH keys` tab and download the Default Private Key.
+- Move this private key file named `LightsailDefaultPrivateKey*.pem` into the local folder `~/.ssh` and rename it `lightsail_key.rsa`.
+- In your terminal, type: `chmod 600 ~/.ssh/lightsail_key.rsa`.
+- SSH into the instance:: `ssh -i ~/.ssh/lightsail_key.rsa ubuntu@54.210.11.70`
+
+### 2. User Management: Create a new user and give user the permission to sudo
 
 1. Create a new user:  
   `$ adduser NEWUSER`
@@ -24,7 +29,7 @@ Source: [DigitalOcean][4]
   3. *List all users (Source: [Ask Ubuntu][5]):    
     `$ cut -d: -f1 /etc/passwd`
 
-### 5 - Update and upgrade all currently installed packages
+### 3 - Update and upgrade all currently installed packages
 Source: [Ask Ubuntu][6]  
     
 1. Update the list of available packages and their versions:  
