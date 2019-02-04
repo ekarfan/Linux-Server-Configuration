@@ -10,23 +10,31 @@ This page explains how to secure and set up a Linux distribution on a virtual ma
   Application URL: http://ec2-54-210-11-70.compute-1.amazonaws.com/
 ```
 
-```
   - The Linux distribution is [Ubuntu](https://www.ubuntu.com/download/server) 16.04 LTS.
   - The virtual server is [Amazon Lighsail](https://lightsail.aws.amazon.com/).
   - The web application is my [Item Catalog project](https://github.com/ekarfan/OAuth2.0.git) created earlier in this Nanodegree program.
   - The database server is [PostgreSQL](https://www.postgresql.org/).
-```
+
 
 ## Step
 
-### 1. Launch Virtual Machine and SSH into the server
+### 1. Server setup
+- Start a new Ubuntu Linux server instance on Amazon Lightsail.      
+        * Log in!
+        * Create an instance
+        * Choose an instance image: Ubuntu (OS only)
+        * Choose your instance plan (lowest tier is fine)
+        * Give your instance a hostname
+        * Wait for startup
+
+### 2. Launch Virtual Machine and SSH into the server
 - From the `Account` menu on Amazon Lightsail, click on `SSH keys` tab and download the Default Private Key.
 - Move this private key file named `LightsailDefaultPrivateKey*.pem` into the local folder `~/.ssh` and rename it `lightsail_key.rsa`.
 - Change the key permission so that only owner can read and write:
   In the terminal, type: `chmod 600 ~/.ssh/lightsail_key.rsa`.
 - SSH into the instance:: `ssh -i ~/.ssh/lightsail_key.rsa ubuntu@54.210.11.70`
 
-### 2. User Management: Create a new user and give user the permission to sudo
+### 3. User Management: Create a new user and give user the permission to sudo
   * Add User grader
   
   ```
@@ -43,7 +51,7 @@ This page explains how to secure and set up a Linux distribution on a virtual ma
     grader ALL=(ALL:ALL) ALL
   ```
   
-### 3. Set-up SSH keys for user grader
+### 4. Set-up SSH keys for user grader
   *  Generate an encryption key on your local machine
   
    3.1 Go to the directory where you want to save the Key, and run the following command:
@@ -74,11 +82,11 @@ This page explains how to secure and set up a Linux distribution on a virtual ma
    $ ssh -i ~/.ssh/lightsail_key.rsa grader@54.210.11.70 
   ```
 
-### 4. Change SSH port from 22 to 2200
+### 5. Change SSH port from 22 to 2200
   * Find the **Port line** in the same file above, i.e */etc/ssh/sshd_config* and edit it to 2200.
   * Run `sudo service ssh restart` to restart the service.
   
-### 5. Disable root login
+### 6. Disable root login
   * Run `$ sudo nano /etc/ssh/sshd_config`.
   * Find the **PasswordAuthentication** line and edit it to no.
   * Change `PermitRootLogin without-password` to `PermitRootLogin no`.
@@ -87,15 +95,15 @@ This page explains how to secure and set up a Linux distribution on a virtual ma
 
   Now need to use the following command to login to the server: `ssh -i ~/.ssh/lightsail_key.rsa grader@54.210.11.70 -p 2200`
 
-### 6. Configure local timezone to UTC
+### 7. Configure local timezone to UTC
   * Change the timezone to UTC using following command: `$ sudo timedatectl set-timezone UTC`.
   * You can also open time configuration dialog and set it to UTC with: `$ sudo dpkg-reconfigure tzdata`.
 
-### 7. Update all currently installed packages
+### 8. Update all currently installed packages
   * `sudo apt-get update`.
   * `sudo apt-get upgrade`.
 
-### 8. Configure the Uncomplicated Firewall (UFW)
+### 9. Configure the Uncomplicated Firewall (UFW)
   ```
    $ sudo ufw default deny incoming
    $ sudo ufw default allow outgoing
@@ -105,7 +113,7 @@ This page explains how to secure and set up a Linux distribution on a virtual ma
    $ sudo ufw enable
   ```
 
-### 9. Install Apache to serve a Python mod_wsgi application
+### 10. Install Apache to serve a Python mod_wsgi application
  ```
   $ sudo apt-get install apache2 libapache2-mod-wsgi
  ```
@@ -115,7 +123,7 @@ This page explains how to secure and set up a Linux distribution on a virtual ma
   $ sudo a2enmod wsgi
  ```
 
-### 10. Install and configure PostgreSQL
+### 11. Install and configure PostgreSQL
   * Installing PostgreSQL Python dependencies:
   - While logged in as `grader`, install PostgreSQL:
  `sudo apt-get install postgresql`.
@@ -147,10 +155,10 @@ This page explains how to secure and set up a Linux distribution on a virtual ma
 
   - Save and exit using CTRL+X and confirm with Y.
 
- ### 11. Install git
+ ### 12. Install git
   - logged in as `grader`, install `git`: `sudo apt-get install git`.
 
- ### 12. Deploy Flask Application:
+ ### 13. Deploy Flask Application:
 
  #### step-1 
  *Make a catalog.wsgi file to serve the application over the mod_wsgi. with content:
@@ -226,7 +234,7 @@ This page explains how to secure and set up a Linux distribution on a virtual ma
 ```
  * Enable virtual host using :  `sudo a2ensite catalog`
 
-### 13. Clone the Catalog app from Github
+### 14. Clone the Catalog app from Github
 
     ```
       $ cd /var/www/catalog
@@ -253,7 +261,7 @@ This page explains how to secure and set up a Linux distribution on a virtual ma
     $ python database_init.py
     ```
 
-### 14. Restart Apache to launch the app
+### 15. Restart Apache to launch the app
 
    ```
     $ sudo service apache2 restart
@@ -263,6 +271,6 @@ This page explains how to secure and set up a Linux distribution on a virtual ma
 - ServerPilot, [How to Create a Server on Amazon Lightsail](https://serverpilot.io/community/articles/how-to-create-a-server-on-amazon-lightsail.html)
 - DigitalOcean [How To Deploy a Flask Application on an Ubuntu VPS](https://www.digitalocean.com/community/tutorials/how-to-deploy-a-flask-application-on-an-ubuntu-vps)
 - Flask documentation, [Working with Virtual Environments](http://flask.pocoo.org/docs/0.12/deploying/mod_wsgi/#working-with-virtual-environments)
-- [UFW](https://help.ubuntu.com/community/UFW)
-- [Install postgresql](https://www.digitalocean.com/community/tutorials/how-to-secure-postgresql-on-an-ubuntu-vps) , [engine configuration](http://docs.sqlalchemy.org/en/rel_1_0/core/engines.html#postgresql)
+- UFW [UFW](https://help.ubuntu.com/community/UFW)
+- [Install postgresql](https://www.digitalocean.com/community/tutorials/how-to-secure-postgresql-on-an-ubuntu-vps) , 
 - [Add User and give permissions](https://www.digitalocean.com/community/tutorials/how-to-add-and-delete-users-on-an-ubuntu-14-04-vps)
