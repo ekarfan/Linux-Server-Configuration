@@ -11,10 +11,10 @@ This page explains how to secure and set up a Linux distribution on a virtual ma
 ```
 
 ```
-- The Linux distribution is [Ubuntu](https://www.ubuntu.com/download/server) 16.04 LTS.
-- The virtual server is [Amazon Lighsail](https://lightsail.aws.amazon.com/).
-- The web application is my [Item Catalog project](https://github.com/ekarfan/OAuth2.0.git) created earlier in this Nanodegree program.
-- The database server is [PostgreSQL](https://www.postgresql.org/).
+  - The Linux distribution is [Ubuntu](https://www.ubuntu.com/download/server) 16.04 LTS.
+  - The virtual server is [Amazon Lighsail](https://lightsail.aws.amazon.com/).
+  - The web application is my [Item Catalog project](https://github.com/ekarfan/OAuth2.0.git) created earlier in this Nanodegree program.
+  - The database server is [PostgreSQL](https://www.postgresql.org/).
 ```
 
 ## Step
@@ -263,4 +263,6 @@ This page explains how to secure and set up a Linux distribution on a virtual ma
 - ServerPilot, [How to Create a Server on Amazon Lightsail](https://serverpilot.io/community/articles/how-to-create-a-server-on-amazon-lightsail.html)
 - DigitalOcean [How To Deploy a Flask Application on an Ubuntu VPS](https://www.digitalocean.com/community/tutorials/how-to-deploy-a-flask-application-on-an-ubuntu-vps)
 - Flask documentation, [Working with Virtual Environments](http://flask.pocoo.org/docs/0.12/deploying/mod_wsgi/#working-with-virtual-environments)
-
+- [UFW](https://help.ubuntu.com/community/UFW)
+- [Install postgresql](https://www.digitalocean.com/community/tutorials/how-to-secure-postgresql-on-an-ubuntu-vps) , [engine configuration](http://docs.sqlalchemy.org/en/rel_1_0/core/engines.html#postgresql)
+- [Add User and give permissions](https://www.digitalocean.com/community/tutorials/how-to-add-and-delete-users-on-an-ubuntu-14-04-vps)
